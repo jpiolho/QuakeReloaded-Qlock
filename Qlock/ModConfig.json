@@ -1,0 +1,21 @@
+{
+  "ModId": "quakeenhanced.mod.qlock",
+  "ModName": "Qlock",
+  "ModAuthor": "JPiolho",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Adds a clock to the UI",
+  "ModDll": "Qlock.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/Qlock.dll",
+  "ModR2RManagedDll64": "x64/Qlock.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "Qlock.ReleaseMetadata.json",
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [ "reloaded.sharedlib.hooks", "quakeenhanced.mod.quakereloaded" ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [ "quake_x64_steam.exe" ],
+  "ProjectUrl": ""
+}
