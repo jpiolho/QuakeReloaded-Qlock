@@ -1,5 +1,4 @@
-﻿using Qlock.Configuration;
-using Qlock.Template;
+﻿using Qlock.Template;
 using QuakeReloaded.Interfaces;
 using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
@@ -50,7 +49,6 @@ namespace Qlock
             _hooks = context.Hooks;
             _logger = context.Logger;
             _owner = context.Owner;
-            _configuration = context.Configuration;
             _modConfig = context.ModConfig;
 
 
@@ -92,16 +90,6 @@ namespace Qlock
 
 
         }
-
-        #region Standard Overrides
-        public override void ConfigurationUpdated(Config configuration)
-        {
-            // Apply settings from configuration.
-            // ... your code here.
-            _configuration = configuration;
-            _logger.WriteLine($"[{_modConfig.ModId}] Config Updated: Applying");
-        }
-        #endregion
 
         #region For Exports, Serialization etc.
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

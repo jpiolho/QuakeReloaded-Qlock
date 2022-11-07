@@ -1,5 +1,4 @@
-﻿using Qlock.Configuration;
-using Reloaded.Mod.Interfaces;
+﻿using Reloaded.Mod.Interfaces;
 using IReloadedHooks = Reloaded.Hooks.ReloadedII.Interfaces.IReloadedHooks;
 
 namespace Qlock.Template
@@ -24,10 +23,6 @@ namespace Qlock.Template
         /// </summary>
         public ILogger Logger { get; set; } = null!;
 
-        /// <summary>
-        /// Provides access to this mod's configuration.
-        /// </summary>
-        public Config Configuration { get; set; } = null!;
 
         /// <summary>
         /// Configuration of this mod.

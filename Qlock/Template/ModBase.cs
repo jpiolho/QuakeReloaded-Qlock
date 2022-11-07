@@ -1,5 +1,4 @@
-﻿using Qlock.Configuration;
-
+﻿
 namespace Qlock.Template
 {
     /// <summary>
@@ -62,10 +61,5 @@ namespace Qlock.Template
             */
         }
 
-        public virtual void ConfigurationUpdated(Config configuration)
-        {
-            // Apply settings from configuration.
-            // ... your code here.
-        }
     }
 }
