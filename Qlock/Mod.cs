@@ -40,8 +40,8 @@ namespace Qlock
         private IntPtr _cvarClock;
         private IntPtr _cvarClockX;
         private IntPtr _cvarClockY;
-        private IntPtr _cvarClockAMPM;
-        private IntPtr _cvarClockGenericLocale;
+        private IntPtr _cvarClockStyle;
+        private IntPtr _cvarClockSeparator;
 
         public Mod(ModContext context)
         {
@@ -60,11 +60,11 @@ namespace Qlock
 
             qreloaded.Events.RegisterOnPreInitialize(() =>
             {
-                _cvarClock = qreloaded.Cvars.Register("scr_clock", "0", "Turn on or off a clock on screen. 0 = No clock, 1 = Game time (not implemented yet) 2 = 12h clock, 3 = 24h clock", CvarFlags.Float | CvarFlags.Saved, 0, 3);
+                _cvarClock = qreloaded.Cvars.Register("scr_clock", "0", "Turn on or off a clock on screen. 0 = No clock, 1 = Map time, 2 = 12h clock, 3 = 24h clock, 4 = Custom", CvarFlags.Integer | CvarFlags.Saved, 0, 3);
                 _cvarClockX = qreloaded.Cvars.Register("scr_clock_x", "0.90", "X position of the clock (0: Left edge, 1: Right edge)", CvarFlags.Float | CvarFlags.Saved, 0, 1);
                 _cvarClockY = qreloaded.Cvars.Register("scr_clock_y", "0.10", "Y position of the clock (0: Top edge, 1: Bottom edge)", CvarFlags.Float | CvarFlags.Saved, 0, 1);
-                _cvarClockAMPM = qreloaded.Cvars.Register("scr_clock_ampm", "1", "In 12h format, show AM/PM", CvarFlags.Boolean | CvarFlags.Saved);
-                _cvarClockGenericLocale = qreloaded.Cvars.Register("scr_clock_genericlocale", "0", "If set to 1, it'll use generic language instead of system language settings", CvarFlags.Boolean | CvarFlags.Saved);
+                _cvarClockStyle = qreloaded.Cvars.Register("scr_clock_style", "0", "Specifies the style for the clock. Dependant on scr_clock value. Check manual for more info.", CvarFlags.Integer | CvarFlags.Saved);
+                _cvarClockSeparator = qreloaded.Cvars.Register("scr_clock_separator", ":", "What separator should be used between the different time components", CvarFlags.String | CvarFlags.Saved);
             });
 
 
@@ -73,17 +73,60 @@ namespace Qlock
                 var clock = qreloaded.Cvars.GetFloatValue(_cvarClock);
                 if (clock > 0)
                 {
+                    var separator = qreloaded.Cvars.GetStringValue(_cvarClockSeparator, ":")[0];
                     var dt = DateTime.Now;
-                    var locale = qreloaded.Cvars.GetBoolValue(_cvarClockGenericLocale,false) ? CultureInfo.InvariantCulture : CultureInfo.CurrentCulture;
-                    if (clock == 2)
+                    var style = (int)qreloaded.Cvars.GetFloatValue(_cvarClockStyle, 0);
+
+                    var x = qreloaded.Cvars.GetFloatValue(_cvarClockX, 0.90f);
+                    var y = qreloaded.Cvars.GetFloatValue(_cvarClockY, 0.10f);
+
+                    string? text = null;
+
+                    if (clock == 1)
                     {
-                        var ampm = qreloaded.Cvars.GetBoolValue(_cvarClockAMPM);
-                        ui.DrawText(dt.ToString(ampm ? "hh:mmtt" : "hh:mm", locale), qreloaded.Cvars.GetFloatValue(_cvarClockX, 0.90f), qreloaded.Cvars.GetFloatValue(_cvarClockY, 0.10f));
+                        var ts = TimeSpan.FromSeconds(qreloaded.Game.MapTime);
+
+                        switch (style)
+                        {
+                            default:
+                            case 0: text = $"{(int)ts.TotalMinutes:00}{separator}{ts.Seconds:00}"; break;
+                            case 1: text = $"{(int)ts.TotalHours:00}{separator}{ts.Minutes:00}{separator}{ts.Seconds:00}"; break;
+                            case 2: text = $"{(int)ts.TotalMinutes:00}{separator}{ts.Seconds:00}.{ts.Milliseconds / 100:0}"; break;
+                            case 3: text = $"{(int)ts.TotalHours:00}{separator}{ts.Minutes:00}{separator}{ts.Seconds:00}.{ts.Milliseconds / 100:0}"; break;
+                            case 4: text = $"{(int)ts.TotalMinutes:00}{separator}{ts.Seconds:00}.{ts.Milliseconds:000}"; break;
+                            case 5: text = $"{(int)ts.TotalHours:00}{separator}{ts.Minutes:00}{separator}{ts.Seconds:00}.{ts.Milliseconds:000}"; break;
+                            case 6: text = $"{(int)ts.TotalSeconds}"; break;
+                            case 7: text = $"{(int)ts.TotalSeconds}.{ts.Milliseconds / 100:0}"; break;
+                            case 8: text = $"{(int)ts.TotalSeconds}.{ts.Milliseconds:000}"; break;
+                            case 9: text = $"{(int)ts.TotalMilliseconds}"; break;
+                        }
+                    }
+                    else if (clock == 2)
+                    {
+                        var ampm = qreloaded.Cvars.GetBoolValue(_cvarClockStyle);
+
+                        switch(style)
+                        {
+                            default:
+                            case 0: text = dt.ToString($"hh'{separator}'mmtt"); break;
+                            case 1: text = dt.ToString($"hh'{separator}'mm"); break;
+                            case 2: text = dt.ToString($"hh'{separator}'mm'{separator}'sstt"); break;
+                            case 3: text = dt.ToString($"hh'{separator}'mm'{separator}'ss"); break;
+                        }
                     }
                     else if (clock == 3)
                     {
-                        ui.DrawText(dt.ToString("HH:mm", locale), qreloaded.Cvars.GetFloatValue(_cvarClockX, 0.90f), qreloaded.Cvars.GetFloatValue(_cvarClockY, 0.10f));
+                        switch(style)
+                        {
+                            default:
+                            case 0: text = dt.ToString($"HH'{separator}'mm"); break;
+                            case 1: text = dt.ToString($"HH'{separator}'mm'{separator}'ss"); break;
+                        }
                     }
+
+                    // Draw text to the screen
+                    if(text is not null)
+                        ui.DrawText(text, x, y);
                 }
             });
 
