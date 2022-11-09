@@ -103,8 +103,6 @@ namespace Qlock
                     }
                     else if (clock == 2)
                     {
-                        var ampm = qreloaded.Cvars.GetBoolValue(_cvarClockStyle);
-
                         switch(style)
                         {
                             default:
