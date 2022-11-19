@@ -22,7 +22,7 @@ env:
   PUBLISH_PATH: ./Publish
   
   CSPROJ_PATH: ./Qlock/Qlock.csproj
-  MODCONFIG_PATH: ./Qlock/Qlock.json
+  MODCONFIG_PATH: ./Qlock/ModConfig.json
   RELOADEDII_PACKAGENAME: Qlock
   
   RELOADEDIIMODS: .
