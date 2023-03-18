@@ -1,12 +1,15 @@
 # Qlock
-<p align="center">An engine mod for Quake Enhanced that an in-game clock to the UI</p>
+<p align="center">An engine mod for Quake Enhanced that adds a customizable on-screen clock. You can display the map time, local time in 12 or 24-hour format, or a custom format. The clock's position, style, and separator character can be adjusted through console commands.</p>
 <p align="center">This mod uses <a href="https://github.com/Reloaded-Project/Reloaded-II">Reloaded-II</a> and <a href="https://github.com/jpiolho/QuakeReloaded">QuakeReloaded</a></p>
 <p align="center"><img width="256" height="256" alt="Logo" src="https://github.com/jpiolho/QuakeReloaded-Qlock/blob/main/Qlock/Preview.png"></p>
 
-
 # How to configure
 With this mod, the following cvars are available:
-* `scr_clock` - 0: No clock, 1: In-game time, 2: 12h real world clock, 3: 24h real world clock
+* `scr_clock` - clock display:
+  * 0: No clock
+  * 1: In-game time
+  * 2: 12h real world clock
+  * 3: 24h real world clock
 * `scr_clock_x` - Customize the X position of the clock
 * `scr_clock_y` - Customize the Y position of the clock`
 * `scr_clock_style` - Specifies the style of the clock. See [Styles](#Styles) section.
