@@ -15,15 +15,6 @@
   "PluginData": {
     "GitHubDependencies": {
       "IdToConfigMap": {
-        "reloaded.sharedlib.hooks": {
-          "Config": {
-            "UserName": "Reloaded.SharedLib.Hooks.ReloadedII",
-            "RepositoryName": "Sewer56",
-            "UseReleaseTag": true,
-            "AssetFileName": "reloaded.sharedlib.hooks.zip"
-          },
-          "ReleaseMetadataName": "Sewer56.Update.ReleaseMetadata.json"
-        },
         "quakeenhanced.mod.quakereloaded": {
           "Config": {
             "UserName": "jpiolho",
@@ -33,33 +24,41 @@
           },
           "ReleaseMetadataName": "QuakeReloaded.ReleaseMetadata.json"
         },
+        "reloaded.sharedlib.hooks": {
+          "Config": {
+            "UserName": "Sewer56",
+            "RepositoryName": "Reloaded.SharedLib.Hooks.ReloadedII",
+            "UseReleaseTag": true,
+            "AssetFileName": "reloaded.sharedlib.hooks.zip"
+          },
+          "ReleaseMetadataName": "Sewer56.Update.ReleaseMetadata.json"
+        },
         "Reloaded.Memory.SigScan.ReloadedII": {
           "Config": {
-            "UserName": "Reloaded.Memory.SigScan",
-            "RepositoryName": "Reloaded-Project",
+            "UserName": "Reloaded-Project",
+            "RepositoryName": "Reloaded.Memory.SigScan",
             "UseReleaseTag": false,
             "AssetFileName": "Mod.zip"
           },
           "ReleaseMetadataName": "Reloaded.Memory.SigScan.ReloadedII.ReleaseMetadata.json"
         }
+      },
+      "GitHubRelease": {
+        "UserName": "jpiolho",
+        "RepositoryName": "QuakeReloaded-Qlock",
+        "UseReleaseTag": true,
+        "AssetFileName": "Mod.zip"
       }
     },
-    "GitHubRelease": {
-      "UserName": "jpiolho",
-      "RepositoryName": "QuakeReloaded-Qlock",
-      "UseReleaseTag": true,
-      "AssetFileName": "Mod.zip"
-    }
-  },
-  "IsUniversalMod": false,
-  "ModDependencies": [
-    "quakeenhanced.mod.quakereloaded",
-    "reloaded.sharedlib.hooks"
-  ],
-  "OptionalDependencies": [],
-  "SupportedAppId": [
-    "quake_x64_steam.exe",
-    "quake_shipping_playfab_gog_x64.exe"
-  ],
-  "ProjectUrl": "https://github.com/jpiolho/QuakeReloaded-Qlock"
-}
+    "IsUniversalMod": false,
+    "ModDependencies": [
+      "quakeenhanced.mod.quakereloaded",
+      "reloaded.sharedlib.hooks"
+    ],
+    "OptionalDependencies": [],
+    "SupportedAppId": [
+      "quake_x64_steam.exe",
+      "quake_shipping_playfab_gog_x64.exe"
+    ],
+    "ProjectUrl": "https://github.com/jpiolho/QuakeReloaded-Qlock"
+  }
